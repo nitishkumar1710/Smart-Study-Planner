@@ -1,0 +1,28 @@
+* { box-sizing: border-box; }
+body { margin: 0; font-family: system-ui, sans-serif; background: #f4f6fb; color: #1d2433; }
+.app { max-width: 1100px; margin: 0 auto; padding: 20px; }
+header { display: flex; justify-content: space-between; align-items: center; }
+.grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 20px; }
+@media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
+.card { background: #fff; border-radius: 12px; padding: 18px; box-shadow: 0 1px 6px rgba(0,0,0,.08); }
+form { display: grid; gap: 10px; }
+input, button { font: inherit; padding: 8px 10px; border-radius: 8px; border: 1px solid #cdd3e0; }
+label { display: grid; gap: 4px; font-size: 14px; }
+button { background: #3b5bdb; color: #fff; border: 0; cursor: pointer; }
+button:disabled { opacity: .6; }
+button.danger { background: #e03131; }
+.row { display: flex; justify-content: space-between; align-items: center; }
+.tasks { list-style: none; padding: 0; }
+.tasks li { display: flex; justify-content: space-between; gap: 8px; padding: 8px 0; border-bottom: 1px solid #eef0f6; }
+.tasks li.done strong { text-decoration: line-through; opacity: .5; }
+.tasks small { display: block; color: #667; }
+.actions { display: flex; gap: 4px; }
+.actions button { padding: 4px 8px; font-size: 13px; }
+.pill { padding: 4px 10px; border-radius: 999px; font-size: 13px; }
+.pill.on { background: #d3f9d8; color: #2b8a3e; }
+.pill.off { background: #ffe3e3; color: #c92a2a; }
+.error { background: #ffe3e3; color: #c92a2a; padding: 10px; border-radius: 8px; margin: 10px 0; }
+.explain { background: #edf2ff; padding: 10px; border-radius: 8px; font-size: 14px; }
+.day h3 { margin: 14px 0 6px; font-size: 15px; }
+.slot { display: grid; grid-template-columns: 120px 1fr auto; gap: 8px; padding: 6px 10px; background: #f8f9fc; border-left: 3px solid #3b5bdb; margin-bottom: 4px; border-radius: 4px; }
+.empty { color: #889; }

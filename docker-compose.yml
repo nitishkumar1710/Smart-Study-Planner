@@ -1,0 +1,18 @@
+services:
+  mongo:
+    image: mongo:7
+    ports: ["27017:27017"]
+    volumes: [mongo_data:/data/db]
+  ml-service:
+    build: ./ml-service
+    ports: ["8000:8000"]
+  server:
+    build: ./server
+    ports: ["5000:5000"]
+    environment:
+      MONGO_URI: mongodb://mongo:27017/study-planner
+      ML_URL: http://ml-service:8000
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+    depends_on: [mongo, ml-service]
+volumes:
+  mongo_data:
