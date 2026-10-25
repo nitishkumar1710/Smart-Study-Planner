@@ -22,7 +22,16 @@ The goal is to make study planning more organized, manageable, and adaptable to 
 <!-- Add your screenshot to the repository's screenshots/ folder, then uncomment the next line. -->
 <!-- ![Smart Study Planner Dashboard](screenshots/smart-study-planner.png) -->
 
-*Add a screenshot of the working dashboard here.*
+## 📸 Application Screenshots
+
+### Smart Study Planner Dashboard
+
+![Smart Study Planner Dashboard](smart-study-planner.png)
+
+### Generated Study Plan
+
+![Generated Study Plan](smart-study-planner1.png)
+
 
 ## 🛠️ Technology Stack
 
