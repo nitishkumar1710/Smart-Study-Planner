@@ -1,5 +1,6 @@
 import Task from "../models/Task.js";
 import StudyLog from "../models/StudyLog.js";
+import Block from "../models/Block.js";
 import { rankSlots } from "./ml.js";
 
 const DAY_START = +process.env.DAY_START || 7;
@@ -29,7 +30,8 @@ export async function generatePlan() {
   const now = new Date();
   const tasks = await Task.find({ completed: false }).sort({ deadline: 1, difficulty: -1 });
   const logs = await StudyLog.find().sort({ startedAt: -1 }).limit(500);
-  const free = buildFreeSlots(now);
+  const blocks = await Block.find({ end: { $gt: now } });
+  const free = buildFreeSlots(now).filter((s) => !blocks.some((b) => s.start < b.end && s.end > b.start));
   const used = new Set();
   const perDay = new Map();
   let trainedOn = 0;

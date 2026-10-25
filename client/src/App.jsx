@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import ChatPanel from "./ChatPanel.jsx";
 
 const WS_URL = import.meta.env.VITE_WS_URL || `ws://${location.hostname}:5000`;
 const api = async (path, opts = {}) => {
@@ -16,6 +17,8 @@ const emptyForm = { title: "", subject: "", difficulty: 3, estimatedMinutes: 60,
 export default function App() {
   const [tasks, setTasks] = useState([]);
   const [explanation, setExplanation] = useState("");
+  const [warnings, setWarnings] = useState([]);
+  const [quick, setQuick] = useState("");
   const [form, setForm] = useState(emptyForm);
   const [live, setLive] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -25,6 +28,7 @@ export default function App() {
     const [t, p] = await Promise.all([api("/tasks"), api("/plan")]);
     setTasks(t);
     setExplanation(p.explanation);
+    setWarnings(p.warnings || []);
   };
 
   useEffect(() => {
@@ -54,6 +58,12 @@ export default function App() {
       await api("/tasks", { method: "POST", body: { ...form, deadline: new Date(form.deadline).toISOString() } });
       setForm(emptyForm);
     });
+  };
+
+  const quickAdd = (e) => {
+    e.preventDefault();
+    if (!quick.trim()) return;
+    act(async () => { await api("/tasks/parse", { method: "POST", body: { text: quick } }); setQuick(""); });
   };
 
   const replan = () => act(async () => {
@@ -94,6 +104,9 @@ export default function App() {
       <div className="grid">
         <section className="card">
           <h2>Add task</h2>
+          <form onSubmit={quickAdd} className="quick">
+            <input value={quick} onChange={(e) => setQuick(e.target.value)} placeholder='✨ Describe it: "Physics assignment due Thursday 5pm, hard, 3 hours"' />
+          </form>
           <form onSubmit={addTask}>
             <input required placeholder="Title" value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} />
             <input placeholder="Subject" value={form.subject} onChange={(e) => setForm({ ...form, subject: e.target.value })} />
@@ -134,6 +147,7 @@ export default function App() {
             <h2>Your plan</h2>
             <button onClick={replan} disabled={busy}>{busy ? "Planning…" : "✨ Generate plan"}</button>
           </div>
+          {warnings.length > 0 && <div className="warn">{warnings.map((w, i) => <div key={i}>⚠️ {w}</div>)}</div>}
           {explanation && <p className="explain"><b>AI coach:</b> {explanation}</p>}
           {byDay.length === 0 && <p className="empty">Add tasks, then generate a plan.</p>}
           {byDay.map(([day, items]) => (
@@ -150,6 +164,7 @@ export default function App() {
           ))}
         </section>
       </div>
+      <ChatPanel />
     </div>
   );
 }

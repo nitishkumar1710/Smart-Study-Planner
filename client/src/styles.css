@@ -26,3 +26,15 @@ button.danger { background: #e03131; }
 .day h3 { margin: 14px 0 6px; font-size: 15px; }
 .slot { display: grid; grid-template-columns: 120px 1fr auto; gap: 8px; padding: 6px 10px; background: #f8f9fc; border-left: 3px solid #3b5bdb; margin-bottom: 4px; border-radius: 4px; }
 .empty { color: #889; }
+.quick { margin-bottom: 12px; }
+.warn { background: #fff4e6; color: #d9480f; padding: 8px 10px; border-radius: 8px; font-size: 13px; margin-bottom: 8px; }
+.chat { margin-top: 20px; }
+.chat-log { max-height: 320px; overflow-y: auto; display: grid; gap: 8px; margin-bottom: 10px; }
+.bubble { padding: 8px 12px; border-radius: 12px; max-width: 85%; white-space: pre-wrap; font-size: 14px; }
+.bubble.user { background: #3b5bdb; color: #fff; justify-self: end; }
+.bubble.assistant { background: #f1f3f9; }
+.tools { margin-top: 6px; display: flex; gap: 4px; flex-wrap: wrap; }
+.tools span { font-size: 11px; padding: 2px 6px; border-radius: 6px; background: #e7f5ff; }
+.tools .bad { background: #ffe3e3; }
+.examples { display: flex; gap: 6px; flex-wrap: wrap; }
+.examples button { background: #edf2ff; color: #3b5bdb; font-size: 13px; }
